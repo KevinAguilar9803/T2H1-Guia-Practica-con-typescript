@@ -1,75 +1,55 @@
 import { Heroes } from "../Entidades/Heroe";
-export { ListaHeroes }
-let ListaHeroes: Heroes[] = [
-    {
-        Codigo: 1,
-        Nombre: "Batman",
-        Edad: 40,
-        Ciudad: "Gotica",
-        Imagen: "https://bandai.com.mx/blog/wp-content/uploads/2019/09/Historia-de-Batman-el-superhe%CC%81roe-ma%CC%81s-popular-en-la-era-digital-copia-1.jpg"
-    },
-    {
-        Codigo: 2,
-        Nombre: "Spiderman",
-        Edad: 20,
-        Ciudad: "New York",
-        Imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU0CXQW3CNDOftOamFF5UPRE-h4kjpz38e-g&s"
-    },
-    {
-        Codigo: 3,
-        Nombre: "Superman",
-        Edad: 35,
-        Ciudad: "Metropolis",
-        Imagen: "https://media.gq.com.mx/photos/6046677d32fb42c17c0c6fe7/4:3/w_2664,h_1998,c_limit/SUPERMAN.jpg"
-    }
-]
-// Funcion insertar heroes
-export function Insertar() {
-    let cod = Number((<HTMLInputElement>document.getElementById("codigo")).value.toString());
-    let nom = (<HTMLInputElement>document.getElementById("nombre")).value.toString();
-    let eda = Number((<HTMLInputElement>document.getElementById("edad")).value.toString());
-    let ciu = (<HTMLInputElement>document.getElementById("ciudad")).value.toString();
-    let img = (<HTMLInputElement>document.getElementById("imagen")).value.toString();
+export let ListaHeroes: Heroes[] = JSON.parse(localStorage.getItem('heroes') || '[]');
 
-    const op = new Heroes(cod, nom, eda, ciu, img);
-    ListaHeroes.push(op);
-    Listar();
+// Héroes por defecto
+const heroesPorDefecto: Heroes[] = [
+    new Heroes(1, "Batman", 40, "Gotica", "https://bandai.com.mx/blog/wp-content/uploads/2019/09/Historia-de-Batman-el-superhe%CC%81roe-ma%CC%81s-popular-en-la-era-digital-copia-1.jpg"),
+    new Heroes(2, "Spiderman", 20, "New York", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU0CXQW3CNDOftOamFF5UPRE-h4kjpz38e-g&s"),
+    new Heroes(3, "Superman", 35, "Metropolis", "https://media.gq.com.mx/photos/6046677d32fb42c17c0c6fe7/4:3/w_2664,h_1998,c_limit/SUPERMAN.jpg")
+];
+
+// Si no hay héroes en el localStorage, se agregarán los héroes por defecto
+if (ListaHeroes.length === 0) {
+    ListaHeroes = heroesPorDefecto;
+    localStorage.setItem('heroes', JSON.stringify(ListaHeroes));
 }
 
-//Funcion Editar
-export function Editar(codigo: number) {
-    let cod = Number((<HTMLInputElement>document.getElementById("codigo")).value.toString());
-    let nom = (<HTMLInputElement>document.getElementById("nombre")).value.toString();
-    let eda = Number((<HTMLInputElement>document.getElementById("edad")).value.toString());
-    let ciu = (<HTMLInputElement>document.getElementById("ciudad")).value.toString();
-    let img = (<HTMLInputElement>document.getElementById("imagen")).value.toString();
-    let index = ListaHeroes.findIndex(heroe => heroe.Codigo === codigo);
+export function Insertar(codigo: number, nombre: string, edad: number, ciudad: string, imagen: string) {
+    const nuevoHeroe = new Heroes(codigo, nombre, edad, ciudad, imagen);
+    ListaHeroes.push(nuevoHeroe);
+    localStorage.setItem('heroes', JSON.stringify(ListaHeroes));
+}
+
+export function Editar(codigo: number, nombre: string, edad: number, ciudad: string, imagen: string, codigoOriginal: number) {
+    const index = ListaHeroes.findIndex(hero => hero.Codigo === codigoOriginal);
     if (index !== -1) {
-        ListaHeroes[index] = new Heroes(cod, nom, eda, ciu, img);
+        ListaHeroes[index] = new Heroes(codigo, nombre, edad, ciudad, imagen);
+        localStorage.setItem('heroes', JSON.stringify(ListaHeroes));
     }
-    Listar();
 }
 
-//Funcion Eliminar
 export function Eliminar(codigo: number) {
-    const index = ListaHeroes.findIndex(op => op.Codigo === codigo);
-    if (index >= 0) {
+    const index = ListaHeroes.findIndex(hero => hero.Codigo === codigo);
+    if (index !== -1) {
         ListaHeroes.splice(index, 1);
+        localStorage.setItem('heroes', JSON.stringify(ListaHeroes));
     }
-    Listar();
 }
 
-// Funcion listar heroes
 export function Listar() {
-    let lis = "";
-    let lista = <HTMLElement>document.getElementById("lista-h");
-    for (let i = 0; i < ListaHeroes.length; i++) {
-        lis = "<tr>" + lis + "<td>" + ListaHeroes[i].Codigo + "</td>" +
-            "<td>" + ListaHeroes[i].Nombre + "</td>" +
-            "<td>" + ListaHeroes[i].Edad + "</td>" +
-            "<td>" + ListaHeroes[i].Ciudad + "</td>" +
-            `<td><img src="${ListaHeroes[i].Imagen}" alt="${ListaHeroes[i].Nombre}" class="hero-image"></td>` +
-            `<td><button class="editar btn btn-warning">Editar</button> <button class="eliminar btn btn-danger">Eliminar</button></td>` + "</tr>";
-    }
-    lista.innerHTML = lis;
+    const lista = document.getElementById("lista-h") as HTMLElement;
+    lista.innerHTML = "";
+    ListaHeroes.forEach(hero => {
+        const row = `<tr>
+            <td>${hero.Codigo}</td>
+            <td>${hero.Nombre}</td>
+            <td>${hero.Edad}</td>
+            <td>${hero.Ciudad}</td>
+            <td><img src="${hero.Imagen}" alt="${hero.Nombre}" class="hero-image"></td>
+            <td><button class="editar btn-edit">Editar</button>
+                <button class="eliminar btn-delete">Eliminar</button></td>
+        </tr>`;
+        lista.innerHTML += row;
+    });
 }
+

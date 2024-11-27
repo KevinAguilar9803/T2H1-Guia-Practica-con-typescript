@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Héroes</title>
+  </head>
+  <body>
+    <div class="form-container">
+        <h2>Formulario de Héroes</h2>
+        <form id="hero-form">
+          <label for="codigo">Código:</label>
+          <input type="number" id="codigo" placeholder="Código único del héroe" />
+      
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" placeholder="Nombre del héroe" />
+      
+          <label for="edad">Edad:</label>
+          <input type="number" id="edad" placeholder="Edad del héroe" />
+      
+          <label for="ciudad">Ciudad:</label>
+          <input type="text" id="ciudad" placeholder="Ciudad de origen" />
+      
+          <label for="imagen">URL de la Imagen:</label>
+          <input type="text" id="imagen" placeholder="URL de la imagen" />
+      
+          <div class="btn-container">
+            <button type="submit" class="btn btn-save">Guardar</button>
+            <button type="button" class="btn btn-cancel" id="btn-cancel">Cancelar</button>
+          </div>
+        </form>
+      </div>      
+
+    <script src="/src/formulario.ts" type="module"></script>
+  </body>
+</html>
+
+
+

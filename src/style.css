@@ -1,141 +1,149 @@
-/* Estilos básicos para la tabla y el modal */
+/* Estilo general del cuerpo */
 body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 30px;
-}
-table {
-  width: 80%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-table, th, td {
-  border: 1px solid #ddd;
-  text-align: center;
-  padding: 8px;
-}
-th {
-  background-color: #f4f4f4;
-}
-.btn {
-  padding: 5px 10px;
-  margin: 5px;
-  cursor: pointer;
-}
-.btn-add {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-}
-.btn.editar {
-  background-color: #2196F3;
-  color: white;
-  border: none;
-}
-.btn.eliminar {
-  background-color: #f44336;
-  color: white;
-  border: none;
-}
-/* Contenedor del modal */
-.container-form {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-/* Estilos del contenido del modal */
-.form-content {
-  background-color: #fff;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f0f4f8, #d9e7f5);
+  margin: 0;
   padding: 20px;
-  border-radius: 8px;
-  width: 400px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  position: relative;
-  animation: fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-h2 {
-  margin-top: 0;
-  text-align: center;
   color: #333;
 }
 
-/* Cerrar modal */
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 24px;
-  color: #888;
-  cursor: pointer;
+/* Contenedor general */
+#app {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.close-btn:hover {
-  color: #000;
-}
-
-/* Estilos del formulario */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-label {
+/* Título */
+h2 {
+  text-align: center;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
   font-weight: bold;
-  color: #555;
 }
 
-input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-/* Botón guardar */
-.btn-save {
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
+/* Botón Añadir Registro */
+#btn-add {
+  display: inline-block;
+  background: #4caf50;
+  color: #ffffff;
   border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+#btn-add:hover {
+  background: #45a049;
+  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background: #2196f3;
+  color: #ffffff;
+}
+
+thead th {
+  padding: 15px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ddd;
   transition: background-color 0.3s ease;
 }
 
-.btn-save:hover {
-  background-color: #0056b3;
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-/* Mostrar el modal cuando se agrega la clase 'active' */
-.container-form.active {
-  display: flex;
+tbody tr:hover {
+  background-color: #e3f2fd;
 }
 
-.hero-image {
-  width: 80px;
-  height: auto;
+td {
+  padding: 15px;
+  text-align: left;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Estilo de imágenes */
+td img {
+  width: 60px;
+  height: 60px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+/* Botones de acción */
+.editar,
+.eliminar {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.editar {
+  background: #ff9800;
+  color: #ffffff;
+}
+
+.editar:hover {
+  background: #f57c00;
+  box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+}
+
+.eliminar {
+  background: #f44336;
+  color: #ffffff;
+}
+
+.eliminar:hover {
+  background: #d32f2f;
+  box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  table {
+    font-size: 12px;
+  }
+
+  td img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .editar,
+  .eliminar {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
