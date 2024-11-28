@@ -16,7 +16,7 @@ tabla.addEventListener("click", (event) => {
     // Editar
     if (target.classList.contains("editar")) {
         const codigo = Number(parent.children[0].innerHTML);
-        window.location.href = `formulario.html?codigo=${codigo}`;
+        window.location.href = `formulario?codigo=${codigo}`;
     }
 
     // Eliminar
